@@ -3,6 +3,7 @@ import win32gui, win32con
 import time
 answer = input("Enter startup mode:")
 if answer == "":
+    print("Custom startup initiating")
     python_path ='C:/Users/liorb/AppData/Local/Programs/Python/Python38/pythonw.exe '
     files = os.listdir('./')
     for file in files:
