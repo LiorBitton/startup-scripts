@@ -21,7 +21,7 @@ def write(charPressed):
 	with open('keyboardData.json') as json_file:
 		data = json.load(json_file)
 	if data.get(date) is None:
-		data.update({date : {"Hours": {},"KeysPressedToday": 0, "Keys" :{}}})
+		data.update({date : {"KeysPressedToday": 0,"Hours": {}, "Keys" :{}}})
 	if data.get(date).get("Hours").get(hour) is None:
 		data[date]["Hours"][hour] = {"KeysPressed": 0}
 		keysPressedHourData = 0
@@ -35,7 +35,6 @@ def write(charPressed):
 	with open('keyboardData.json',"w+") as outfile:
 		json.dump(data, outfile)
 
-print("program is up")
 def to_lower_case(char):
   if 97 <= ord(char) <= 122: # lower case
     return char
