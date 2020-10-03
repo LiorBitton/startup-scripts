@@ -2,6 +2,7 @@ import os
 import win32gui, win32con
 import time
 import sys
+import subprocess
 python_paths = []
 for path in os.environ["PATH"].split(";"):
     if "Python" in path:
@@ -20,7 +21,8 @@ if answer == "" or "0":
                     cmd = path + os.path.abspath(file)
                     print("excuted " + file)
                     try:
-                        os.system(cmd)
+                        subprocess.call(os.path.abspath(file), shell=False)
+                        #os.system(cmd)
                     except:
                         print()
                 time.sleep(0.5)
