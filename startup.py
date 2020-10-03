@@ -21,8 +21,7 @@ if answer == "" or "0":
                     cmd = path + os.path.abspath(file)
                     print("excuted " + file)
                     try:
-                        subprocess.call(os.path.abspath(file), shell=False)
-                        #os.system(cmd)
+                        os.system(cmd)
                     except:
                         print()
                 time.sleep(0.5)
