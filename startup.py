@@ -4,7 +4,7 @@ import time
 answer = input("Enter startup mode:")
 if answer == "":
     print("Custom startup initiating")
-    python_path ='C:/Users/liorb/AppData/Local/Programs/Python/Python38/pythonw.exe '
+    python_path =os.environ['PYTHONHOME']+ " "
     files = os.listdir('./')
     for file in files:
         if file.endswith('.py'):
