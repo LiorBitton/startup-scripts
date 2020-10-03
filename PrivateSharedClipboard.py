@@ -6,7 +6,7 @@ import time, os
 import json
 full_path = os.path.realpath(__file__)
 path, filename = os.path.split(full_path)
-cred = credentials.Certificate('../Resources/credentials.json')
+cred = credentials.Certificate('credentials.json')
 
 app =firebase_admin.initialize_app(cred, {
 	'databaseURL' : 'https://remote-motion-sensor.firebaseio.com'
