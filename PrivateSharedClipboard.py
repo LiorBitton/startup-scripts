@@ -9,7 +9,7 @@ path, filename = os.path.split(full_path)
 cred = credentials.Certificate('credentials.json')
 
 app =firebase_admin.initialize_app(cred, {
-	'databaseURL' : 'https://remote-motion-sensor.firebaseio.com'
+	'databaseURL' : 'https://shared-clipboard-lior.firebaseio.com'
 })
 cb_ref_main = db.reference('user/clipboard')
 ###end of setup
@@ -20,7 +20,8 @@ def clipboard_change(event):
 cb_ref_main.listen(clipboard_change)
 print("Connected to the shared clipboard")
 current_data = cb_ref_main.get()
-clip.copy(current_data)
+if current_data is not None:
+	clip.copy(current_data)
 #update if this machine's clipboard is different than what's in the
 #firebase reference(if this machine copied something)
 while True:
