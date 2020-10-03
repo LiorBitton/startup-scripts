@@ -2,7 +2,6 @@ import os
 import win32gui, win32con
 import time
 import sys
-import subprocess
 python_paths = []
 for path in os.environ["PATH"].split(";"):
     if "Python" in path:
