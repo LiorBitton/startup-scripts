@@ -4,7 +4,7 @@ import time
 answer = input("Enter startup mode:")
 if answer == "":
     print("Custom startup initiating")
-    python_path =os.environ['PYTHONHOME']+ " "
+    python_path =os.environ["PATH"]+ " "
     files = os.listdir('./')
     for file in files:
         if file.endswith('.py'):
