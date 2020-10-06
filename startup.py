@@ -8,11 +8,14 @@ for path in os.environ["PATH"].split(";"):
         if "Scripts" not in path:
             python_paths.append(path + 'pythonw.exe ')
 files = os.listdir('./')
+print("Scripts to run:")
 scripts = []
 for file in files:
     if file.endswith('.py'):
         if file != os.path.relpath(__file__):
             scripts.append(file)
+            print("-" + file)
+
 answer = input("Enter startup mode:")
 if answer == "" or "0":
     print("Initiating custom startup")
