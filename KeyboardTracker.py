@@ -1,11 +1,9 @@
 import json
-
 from pynput.keyboard import Controller, Listener
-
-keyboard = Controller()
 import time
+keyboard = Controller()
+lastsave_minute = "-1"
 
-t = time.localtime()
 try:
 	json_file = open('keyboardData.json', "r")
 	json_file.close()
@@ -14,17 +12,22 @@ except:
 	json.dump({}, json_file)
 	json_file.close()
 
+data = {}
+#Load the data from the KeyboardData.json file into the data dictionary
+with open('keyboardData.json') as json_file:
+	data = json.load(json_file)
 
 def key_to_char(keyPressed):
-	return str(keyPressed).replace("'", "2")
+	return str(keyPressed).replace("'", "",2)
 
 
 def write(charPressed):
+	global lastsave_minute
+	global data
+	t = time.localtime()
 	date = time.strftime("%d/%m/%Y", t)
 	hour = time.strftime("%H", t)
-	data = {}
-	with open('keyboardData.json') as json_file:
-		data = json.load(json_file)
+	minute = time.strftime("%M", t)
 	if data.get(date) is None:
 		data.update({date: {"KeysPressedToday": 0, "Hours": {}, "Keys": {}}})
 	if data.get(date).get("Hours").get(hour) is None:
@@ -37,8 +40,12 @@ def write(charPressed):
 		data[date]["Keys"][charPressed] = 1
 	else:
 		data[date]["Keys"][charPressed] = int(data[date]["Keys"][charPressed]) + 1
-	with open('keyboardData.json', "w+") as outfile:
-		json.dump(data, outfile)
+
+	#Write the content of data into keyBoardData.json every 3 minutes
+	if int(minute) % 3 == 0 and minute != lastsave_minute:
+		lastsave_minute = minute
+		with open('keyboardData.json', "w+") as outfile:
+			json.dump(data, outfile)
 
 
 def to_lower_case(char):
@@ -48,7 +55,6 @@ def to_lower_case(char):
 		return chr(ord(char) - 32)
 	else:  # not a letter of the alphabet
 		return char
-
 
 def on_press(key):
 	if "Key" in str(key):
