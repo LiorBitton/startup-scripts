@@ -1,9 +1,13 @@
 import os
-import win32gui, win32con
+import subprocess
 import time
-import sys
+
+import win32con
+import win32gui
+
 python_paths = []
-for path in os.environ["PATH"].split(";"):
+paths_list = os.environ["PATH"].split(";")
+for path in paths_list:
     if "Python" in path:
         if "Scripts" not in path:
             python_paths.append(path + 'pythonw.exe ')
@@ -21,17 +25,23 @@ if answer == "" or "0":
     print("Initiating custom startup")
     for file in scripts:
         for path in python_paths:
-            cmd = path + os.path.abspath(file)
+            cmd = f"{path}{os.path.abspath(file)}"
             try:
-                os.system(cmd)
-                print("excuted " + file)
+                # print(f"Executing {file} with command {cmd}")
+                background_script = subprocess.Popen(cmd)
+                time.sleep(0.3)
+                exit_code = background_script.poll()
+                if exit_code is not None:
+                    raise Exception("Script failed to run")
+                else:
+                    print(f"Executed {file}")
             except:
-                print()
-                time.sleep(0.5)
+                # print()
+                time.sleep(0.3)
     if answer != "0":
         the_program_to_hide = win32gui.GetForegroundWindow()
-        win32gui.ShowWindow(the_program_to_hide , win32con.SW_HIDE)
-   
+        win32gui.ShowWindow(the_program_to_hide, win32con.SW_HIDE)
+
 else:
     print("Default startup initiated")
     time.sleep(2)
