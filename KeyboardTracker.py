@@ -41,8 +41,8 @@ def write(charPressed):
 	else:
 		data[date]["Keys"][charPressed] = int(data[date]["Keys"][charPressed]) + 1
 
-	#Write the content of data into keyBoardData.json every 3 minutes
-	if int(minute) % 3 == 0 and minute != lastsave_minute:
+	#Write the content of data into keyBoardData.json every 5 minutes
+	if int(minute) > int(lastsave_minute)+4:
 		lastsave_minute = minute
 		with open('keyboardData.json', "w+") as outfile:
 			json.dump(data, outfile)
