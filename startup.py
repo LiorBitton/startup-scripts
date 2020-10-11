@@ -10,7 +10,8 @@ paths_list = os.environ["PATH"].split(";")
 for path in paths_list:
     if "Python" in path:
         if "Scripts" not in path:
-            python_paths.append(path + 'pythonw.exe ')
+            if os.path.exists(path + 'pythonw.exe'):
+                python_paths.append(path + 'pythonw.exe ')
 files = os.listdir('./')
 print("Scripts to run:")
 scripts = []
@@ -19,7 +20,6 @@ for file in files:
         if file != os.path.relpath(__file__):
             scripts.append(file)
             print("-" + file)
-
 answer = input("Enter startup mode:")
 if answer == "" or "0":
     print("Initiating custom startup")
@@ -27,16 +27,18 @@ if answer == "" or "0":
         for path in python_paths:
             cmd = f"{path}{os.path.abspath(file)}"
             try:
-                # print(f"Executing {file} with command {cmd}")
+                print(f"Executing {file} with command {cmd}")
+
                 background_script = subprocess.Popen(cmd)
-                time.sleep(0.3)
+                time.sleep(0.5)
                 exit_code = background_script.poll()
-                if exit_code is not None:
-                    raise Exception("Script failed to run")
-                else:
+                #exit_code = background_script.poll()
+                #if exit_code is not None:
+                #    raise Exception("Script failed to run")
+                if exit_code is None:
                     print(f"Executed {file}")
             except:
-                # print()
+                print("Script failed to run")
                 time.sleep(0.3)
     if answer != "0":
         the_program_to_hide = win32gui.GetForegroundWindow()

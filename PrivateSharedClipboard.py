@@ -13,8 +13,6 @@ app = firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://shared-clipboard-lior.firebaseio.com'
 })
 cb_ref_main = db.reference('user/clipboard')
-
-
 ###end of setup
 def clipboard_change(event):
     if event.data is not None:
