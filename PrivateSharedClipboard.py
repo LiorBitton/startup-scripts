@@ -17,6 +17,7 @@ cb_ref_main = db.reference('user/clipboard')
 def clipboard_change(event):
     if event.data is not None:
         clip.copy(event.data)
+        current_data = event.data
 
 
 cb_ref_main.listen(clipboard_change)

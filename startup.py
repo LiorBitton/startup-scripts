@@ -27,19 +27,15 @@ if answer == "" or "0":
         for path in python_paths:
             cmd = f"{path}{os.path.abspath(file)}"
             try:
-                print(f"Executing {file} with command {cmd}")
-
                 background_script = subprocess.Popen(cmd)
-                time.sleep(0.5)
                 exit_code = background_script.poll()
-                #exit_code = background_script.poll()
-                #if exit_code is not None:
-                #    raise Exception("Script failed to run")
                 if exit_code is None:
                     print(f"Executed {file}")
+                    time.sleep(0.5)
             except:
                 print("Script failed to run")
-                time.sleep(0.3)
+                time.sleep(0.5)
+    time.sleep(2)
     if answer != "0":
         the_program_to_hide = win32gui.GetForegroundWindow()
         win32gui.ShowWindow(the_program_to_hide, win32con.SW_HIDE)
