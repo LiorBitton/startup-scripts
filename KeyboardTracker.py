@@ -3,7 +3,6 @@ from pynput.keyboard import Controller, Listener
 import time
 keyboard = Controller()
 lastsave_minute = "-1"
-
 try:
 	json_file = open('keyboardData.json', "r")
 	json_file.close()
@@ -57,15 +56,7 @@ def to_lower_case(char):
 		return char
 
 def on_press(key):
-	if "Key" in str(key):
-		write(str(key))
-	elif "<" in str(key):
-		write(str(key))
-	elif "\\" in str(key):
-		write(str("\\"))
-	else:
-		write(to_lower_case(str(key).replace("'", "")))
-
+	write(str(key).replace("'", ""))
 
 print("started tracking the keyboard")
 with Listener(
