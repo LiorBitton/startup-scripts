@@ -1,8 +1,11 @@
 import json
 from pynput.keyboard import Controller, Listener
 import time
+import logging
+logger = logging.getLogger('ftpuploader')
 keyboard = Controller()
 lastsave_minute = "-1"
+
 try:
 	json_file = open('keyboardData.json', "r")
 	json_file.close()
@@ -46,18 +49,16 @@ def write(charPressed):
 		with open('keyboardData.json', "w+") as outfile:
 			json.dump(data, outfile)
 
-
-def to_lower_case(char):
-	if 97 <= ord(char) <= 122:  # lower case
-		return char
-	elif 65 <= ord(char) <= 90:  # upper case
-		return chr(ord(char) - 32)
-	else:  # not a letter of the alphabet
-		return char
-
 def on_press(key):
-	write(str(key).replace("'", ""))
-
+	try:
+		write(str(key).replace("'", "").lower())
+	except BaseException as e:
+		errorlog = open('error.txt', "a")
+		errorlog.close()
+		errorlog = open('error.txt', "w")
+		errorlog.write(str(e))
+		errorlog.close()
+		
 print("started tracking the keyboard")
 with Listener(
 		on_press=on_press) as Listener:
