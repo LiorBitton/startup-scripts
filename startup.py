@@ -21,7 +21,7 @@ for file in files:
             scripts.append(file)
             print("-" + file)
 answer = input("Enter startup mode:")
-if answer == "" or "0":
+if answer == "" or answer == "0":
     print("Initiating custom startup")
     for file in scripts:
         for path in python_paths:
@@ -31,11 +31,10 @@ if answer == "" or "0":
                 exit_code = background_script.poll()
                 if exit_code is None:
                     print(f"Executed {file}")
-                    time.sleep(0.5)
+                    time.sleep(0.2)
             except:
                 print("Script failed to run")
-                time.sleep(0.5)
-    time.sleep(2)
+                time.sleep(0.2)
     if answer != "0":
         the_program_to_hide = win32gui.GetForegroundWindow()
         win32gui.ShowWindow(the_program_to_hide, win32con.SW_HIDE)
