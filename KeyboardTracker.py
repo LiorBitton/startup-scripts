@@ -4,7 +4,7 @@ import time
 import logging
 logger = logging.getLogger('ftpuploader')
 keyboard = Controller()
-lastsave_minute = "-1"
+lastsave_minute = "-5"
 
 try:
 	json_file = open('keyboardData.json', "r")
