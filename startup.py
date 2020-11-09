@@ -43,7 +43,7 @@ if answer != "":
                 time.sleep(0.2)
     if answer != "0":
         the_program_to_hide = win32gui.GetForegroundWindow()
-       # win32gui.ShowWindow(the_program_to_hide, win32con.SW_HIDE)
+        win32gui.ShowWindow(the_program_to_hide, win32con.SW_HIDE)
 
 else:
     print("Default startup initiated")
