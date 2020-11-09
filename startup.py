@@ -15,15 +15,21 @@ for path in paths_list:
 files = os.listdir('./')
 print("Scripts to run:")
 scripts = []
+i=1
 for file in files:
     if file.endswith('.py'):
         if file != os.path.relpath(__file__):
             scripts.append(file)
-            print("-" + file)
+            print(str(i) + "-" + file)
+            i+=1
 answer = input("Enter startup mode:")
-if answer == "" or answer == "0":
+if answer != "":
+    i =-1
     print("Initiating custom startup")
     for file in scripts:
+        i+=1
+        if not str(i + 1) in answer:
+            continue
         for path in python_paths:
             cmd = f"{path}{os.path.abspath(file)}"
             try:
@@ -37,7 +43,7 @@ if answer == "" or answer == "0":
                 time.sleep(0.2)
     if answer != "0":
         the_program_to_hide = win32gui.GetForegroundWindow()
-        win32gui.ShowWindow(the_program_to_hide, win32con.SW_HIDE)
+       # win32gui.ShowWindow(the_program_to_hide, win32con.SW_HIDE)
 
 else:
     print("Default startup initiated")
